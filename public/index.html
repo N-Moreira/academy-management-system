@@ -3,89 +3,554 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Auth - Login de Cores</title>
-  <!-- Google Fonts: Inter para uma tipografia moderna e elegante -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Fit Academy - Wellness & Performance</title>
+  
+  <!-- SEO Tags -->
+  <meta name="description" content="Portal de alunos e administração de aulas da Fit Academy. Elevando sua performance ao próximo nível.">
+  <meta name="author" content="Nicolas">
+  
+  <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Área principal da tela que terá seu fundo pintado suavemente com a cor RGB -->
-  <main id="app-container" class="main-container">
+
+  <!-- 1. CARREGADOR GLOBAL DA PÁGINA (Loading) -->
+  <div id="page-loader" class="page-loader">
+    <h1 class="loader-brand">FIT <span>ACADEMY</span></h1>
+    <div class="pb-spinner"></div>
+    <p>Conectando à Fit Academy...</p>
+  </div>
+
+  <!-- CONTAINER DE TELA PRINCIPAL (LANDING PAGE + SPA) -->
+  <div id="landing-page-wrapper">
     
-    <!-- Loader/Feedback visual de carregamento -->
-    <div id="global-loader" class="loader-container hidden">
-      <div class="spinner"></div>
-      <p>Carregando preferências do Firestore...</p>
-    </div>
-
-    <!-- Seção de Login (Exibida por padrão quando o usuário não está autenticado) -->
-    <section id="login-section" class="card fade-in">
-      <div class="card-header">
-        <h2>Entrar na Conta</h2>
-        <p class="subtitle">Digite suas credenciais do Firebase para acessar</p>
+    <!-- CABEÇALHO (Navbar Estilo Panobianco) -->
+    <header class="main-header">
+      <div class="header-container">
+        <h1 class="brand-logo" id="logo-home">FIT <span>ACADEMY</span></h1>
+        
+        <nav class="main-nav">
+          <a href="#hero-section" class="nav-link">Início</a>
+          <a href="#about-section" class="nav-link">Sobre Nós</a>
+          <a href="#coaches-section" class="nav-link">Professores</a>
+        </nav>
+        
+        <div class="header-actions">
+          <button id="btn-nav-aluno" class="btn-nav">Sou Aluno</button>
+          <button id="btn-nav-admin" class="btn-nav">Entrar como Administrador</button>
+          <button id="btn-nav-cadastrar" class="btn btn-orange btn-small">Cadastrar-se</button>
+        </div>
       </div>
-      
-      <form id="login-form">
-        <div class="input-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" placeholder="exemplo@gmail.com" required autocomplete="email">
-        </div>
-        
-        <div class="input-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" placeholder="Sua senha" required autocomplete="current-password">
-        </div>
-        
-        <button type="submit" id="btn-login" class="btn btn-primary">
-          <span>Entrar</span>
-        </button>
-      </form>
+    </header>
 
-      <!-- Container para exibir mensagens de erro amigáveis -->
-      <div id="error-message" class="message error-message hidden"></div>
+    <!-- HERO SECTION (Banner de Alto Impacto) -->
+    <section id="hero-section" class="hero-banner">
+      <div class="hero-content">
+        <span class="hero-tag">WELLNESS • PERFORMANCE • ENGAGEMENT</span>
+        <h2 class="hero-title">CONSTRUA SUA MELHOR <span>VERSÃO</span></h2>
+        <p class="hero-subtitle">Treinamento de elite, infraestrutura moderna e suporte dos maiores profissionais do país. Descubra o ecossistema Fit Academy.</p>
+        <div class="hero-buttons">
+          <button id="btn-hero-matricula" class="btn btn-orange">Matricule-se Já</button>
+          <a href="#about-section" class="btn btn-outline" style="text-decoration: none;">Conheça a Academia</a>
+        </div>
+      </div>
     </section>
 
-    <!-- Seção de Sucesso (Exibida quando o usuário está autenticado com sucesso) -->
-    <section id="dashboard-section" class="card fade-in hidden">
-      <div class="card-header">
-        <div class="success-badge">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-success">
-            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-          </svg>
-          <span>Login realizado com sucesso!</span>
-        </div>
-        <h2>Sua Cor Personalizada</h2>
-        <p class="subtitle">O valor RGB abaixo foi obtido diretamente do seu perfil no Firestore.</p>
-      </div>
-
-      <div class="user-info-container">
-        <div class="info-row">
-          <span class="info-label">E-mail:</span>
-          <span id="user-email" class="info-value">...</span>
-        </div>
-        
-        <div class="info-row">
-          <span class="info-label">Valor RGB:</span>
-          <div class="rgb-badge">
-            <span class="color-preview-dot" id="color-dot"></span>
-            <code id="rgb-value">...</code>
+    <!-- ARTIGO SOBRE NÓS -->
+    <section id="about-section" class="about-article">
+      <div class="section-container">
+        <div class="about-grid">
+          <div class="about-text-content">
+            <span class="section-tag">QUEM SOMOS</span>
+            <h3 class="section-title">SOBRE A <span>FIT ACADEMY</span></h3>
+            <p>Fundada sob a premissa de unir **ciência, performance e bem-estar**, a Fit Academy é muito mais do que uma academia comum. Somos um ecossistema completo focado em potencializar os seus resultados e transformar a sua relação com a saúde física.</p>
+            <p>Nossa estrutura premium é equipada com maquinários importados de última geração que garantem biomecânica perfeita, minimizando lesões e otimizando o estímulo muscular. Seja você um iniciante buscando qualidade de vida ou um atleta focado em hipertrofia de elite, temos o plano e o suporte ideal para a sua jornada.</p>
+            <div class="about-features">
+              <div class="feature-badge">
+                <span class="feature-number">100%</span>
+                <span class="feature-label">Equipamentos Importados</span>
+              </div>
+              <div class="feature-badge">
+                <span class="feature-number">4</span>
+                <span class="feature-label">Professores de Elite</span>
+              </div>
+              <div class="feature-badge">
+                <span class="feature-number">24h</span>
+                <span class="feature-label">Suporte e Planejamento</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="about-image-card">
+            <!-- Representação visual do maquinário moderno com CSS brilhante -->
+            <div class="inner-image-glow">
+              <h4>FITNESS PREMIUM</h4>
+              <p>O melhor ambiente para treinar de verdade.</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Container para mensagens de alertas específicos (ex: documento ou campo de cor ausente no Firestore) -->
-      <div id="firestore-message" class="message info-message hidden"></div>
-
-      <button id="btn-logout" class="btn btn-secondary">
-        <span>Sair</span>
-      </button>
     </section>
 
+    <!-- SEÇÃO NOSSOS PROFESSORES (Renato Cariane, Balestrini, Motomoto, Nicolas) -->
+    <section id="coaches-section" class="coaches-section">
+      <div class="section-container">
+        <div class="section-header-center">
+          <span class="section-tag">CORPO DOCENTE</span>
+          <h3 class="section-title">NOSSOS <span>PROFESSORES</span></h3>
+          <p class="section-subtitle">Treine sob a tutela de referências nacionais em nutrição, fisiologia esportiva e bodybuilding.</p>
+        </div>
+
+        <div class="coaches-grid">
+          <!-- Professor 1: Renato Cariane -->
+          <article class="coach-card">
+            <div class="coach-avatar-wrapper">
+              <img class="coach-avatar" src="img/5601709.jpg" alt="Renato Cariane">
+            </div>
+            <div class="coach-info">
+              <h4 class="coach-name">Renato Cariane</h4>
+              <span class="coach-specialty">Fisiologia e Performance</span>
+              <p class="coach-bio">Especialista em transformação corporal e química esportiva, focando em treinos intensivos de alta eficácia.</p>
+            </div>
+          </article>
+
+          <!-- Professor 2: Balestrini -->
+          <article class="coach-card">
+            <div class="coach-avatar-wrapper">
+              <img class="coach-avatar" src="img/Artes-para-noticias-1-6.jpg" alt="Balestrini">
+            </div>
+            <div class="coach-info">
+              <h4 class="coach-name">Balestrini</h4>
+              <span class="coach-specialty">Hipertrofia & Biomecânica</span>
+              <p class="coach-bio">Mestre em biomecânica aplicada e treino de força de alta intensidade. Mentor de campeões.</p>
+            </div>
+          </article>
+
+          <!-- Professor 3: Motomoto -->
+          <article class="coach-card">
+            <div class="coach-avatar-wrapper">
+              <img class="coach-avatar" src="img/OIP.webp" alt="Motomoto">
+            </div>
+            <div class="coach-info">
+              <h4 class="coach-name">Motomoto</h4>
+              <span class="coach-specialty">Força & Condicionamento</span>
+              <p class="coach-bio">Treinador focado em condicionamento cardiovascular e potência muscular explosiva.</p>
+            </div>
+          </article>
+
+          <!-- Professor 4: Nicolas -->
+          <article class="coach-card coach-card-admin">
+            <div class="coach-avatar-wrapper">
+              <div class="coach-avatar font-avatar admin-glow">N</div>
+            </div>
+            <div class="coach-info">
+              <h4 class="coach-name">Nicolas</h4>
+              <span class="coach-specialty">Coordenador & Admin</span>
+              <p class="coach-bio">Diretor técnico da Fit Academy, responsável por prescrever periodizações científicas personalizadas.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER DA LANDING PAGE -->
+    <footer class="main-footer">
+      <p>&copy; 2026 Fit Academy. Todos os direitos reservados. WELLNESS • PERFORMANCE • ENGAGEMENT.</p>
+    </footer>
+
+  </div>
+
+  <!-- CONTAINER DO DASHBOARD (Ocultado por padrão se deslogado) -->
+  <main class="main-wrapper hidden" id="dashboard-wrapper">
+    <section id="dashboard-section" class="dashboard-container fade-in-ui">
+      
+      <!-- Cabeçalho do Dashboard -->
+      <header class="dashboard-header">
+        <div class="header-brand">
+          <h1 class="brand-logo" id="logo-dashboard">FIT <span>ACADEMY</span></h1>
+        </div>
+
+        <div class="user-profile-badge">
+          <div id="user-avatar" class="profile-avatar">U</div>
+          <div class="profile-info">
+            <span id="user-display-name" class="profile-name">Carregando...</span>
+            <span id="user-display-role" class="profile-role">Aluno</span>
+          </div>
+          <button id="btn-logout" class="btn btn-outline btn-small" title="Sair do Sistema">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 16px; height: 16px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Corpo Principal do Painel -->
+      <div class="dashboard-body">
+
+        <!-- A. PAINEL DO ALUNO -->
+        <div id="aluno-panel" class="hidden">
+          
+          <!-- Bloco Aprovado -->
+          <div id="aluno-approved-content" class="fade-in-ui">
+            <div class="panel-title-container">
+              <h2 class="panel-title">Meus <span>Treinos & Aulas</span></h2>
+            </div>
+            <div id="student-classes-grid" class="classes-grid">
+              <!-- Aulas carregadas via JS -->
+            </div>
+          </div>
+
+          <!-- Bloco Pendente -->
+          <div id="aluno-pending-content" class="fade-in-ui hidden">
+            <div class="pending-approval-card">
+              <div class="pending-icon-wrapper animate-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pending-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+                </svg>
+              </div>
+              <h2 class="pending-title">Cadastro <span>Pendente de Aprovação</span></h2>
+              <p class="pending-message">Olá! Seu cadastro foi recebido com sucesso no ecossistema <strong>Fit Academy</strong>.</p>
+              <p class="pending-subtitle">Para garantir a segurança de todos os membros, seu acesso está aguardando a finalização de cadastro e liberação por parte do coordenador técnico <strong>Nicolas</strong>.</p>
+              <div class="pending-status-badge">Status: Aguardando Liberação</div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- B. PAINEL DO ADMINISTRADOR (Nicolas) -->
+        <div id="admin-panel" class="hidden">
+          
+          <!-- Menu de Abas do Administrador -->
+          <nav class="admin-navbar">
+            <button id="tab-aulas" class="nav-tab active">Aulas e Treinos</button>
+            <button id="tab-alunos" class="nav-tab">Alunos Cadastrados</button>
+            <button id="tab-permissoes" class="nav-tab">Permissões <span id="badge-permissoes-count" class="badge-count hidden">0</span></button>
+          </nav>
+
+
+          <!-- 1. Subpainel: Gerenciar Aulas -->
+          <div id="subpanel-aulas" class="fade-in-ui">
+            <div class="actions-ribbon">
+              <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input type="text" id="search-aulas" class="input-field search-field" placeholder="Buscar por aula, instrutor...">
+              </div>
+              <button id="btn-add-aula" class="btn btn-orange btn-small">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 16px; height: 16px;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Nova Aula
+              </button>
+            </div>
+
+            <div class="table-container">
+              <table class="pb-table">
+                <thead>
+                  <tr>
+                    <th>Aula / Treino</th>
+                    <th>Aluno Beneficiário</th>
+                    <th>Instrutor (Professor)</th>
+                    <th>Dias & Horários (Calendário)</th>
+                    <th>Local/Sala</th>
+                    <th style="width: 100px;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="table-aulas-body">
+                  <!-- Linhas geradas dinamicamente por JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 2. Subpainel: Gerenciar Alunos -->
+          <div id="subpanel-alunos" class="fade-in-ui hidden">
+            <div class="actions-ribbon">
+              <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input type="text" id="search-alunos" class="input-field search-field" placeholder="Buscar por nome ou e-mail...">
+              </div>
+              <button id="btn-add-aluno" class="btn btn-orange btn-small">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 16px; height: 16px;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6 6 0 015.29-5.97 5.002 5.002 0 002.922 0 6 6 0 015.29 5.97v.11H4z" />
+                </svg>
+                Novo Aluno
+              </button>
+            </div>
+
+            <div class="table-container">
+              <table class="pb-table">
+                <thead>
+                  <tr>
+                    <th>Nome do Aluno</th>
+                    <th>E-mail</th>
+                    <th>UID do Firebase Auth</th>
+                    <th>Data Cadastro</th>
+                    <th>Status de Acesso</th>
+                    <th style="width: 100px;">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="table-alunos-body">
+                  <!-- Linhas geradas dinamicamente por JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Subpainel: Permissões -->
+          <div id="subpanel-permissoes" class="fade-in-ui hidden">
+            <div class="actions-ribbon">
+              <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input type="text" id="search-permissoes" class="input-field search-field" placeholder="Buscar por nome ou e-mail...">
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="pb-table">
+                <thead>
+                  <tr>
+                    <th>Nome do Aluno</th>
+                    <th>E-mail</th>
+                    <th>UID do Firebase Auth</th>
+                    <th>Data Solicitação</th>
+                    <th>Status Atual</th>
+                    <th style="width: 240px; text-align: center;">Ações de Permissão</th>
+                  </tr>
+                </thead>
+                <tbody id="table-permissoes-body">
+                  <!-- Linhas geradas dinamicamente por JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
   </main>
 
-  <!-- Importação do arquivo JavaScript como módulo Vanilla, usando o SDK do Firebase -->
+  <!-- ==========================================
+       MODAL: LOGIN (Aluno e Administrador)
+       ========================================== -->
+  <div id="modal-login" class="modal-overlay">
+    <div class="modal-window" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 id="login-modal-title" class="modal-title">Acessar <span>Portal</span></h3>
+        <button id="btn-close-modal-login" class="btn-close-modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-tabs" style="display: flex; border-bottom: 1px solid var(--pb-border-gray); margin-bottom: 20px;">
+        <button id="tab-login-aluno" class="nav-tab active" style="flex: 1; padding: 10px;">Sou Aluno</button>
+        <button id="tab-login-admin" class="nav-tab" style="flex: 1; padding: 10px;">Administrador</button>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" class="input-field" placeholder="exemplo@gmail.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" class="input-field" placeholder="Sua senha de acesso" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btn-login" class="btn btn-orange">
+          <span>Entrar no Portal</span>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>ou entrar com</span></div>
+      <button id="btn-login-google" class="btn btn-google">
+        <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.77c-.98.66-2.23 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+        </svg>
+        <span>Google</span>
+      </button>
+
+      <!-- Feedback de erro de Login -->
+      <div id="login-error" class="alert alert-danger hidden" style="margin-top: 16px;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: AUTO CADASTRO / MATRÍCULA DO ALUNO
+       ========================================== -->
+  <div id="modal-cadastro" class="modal-overlay">
+    <div class="modal-window" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Fazer <span>Matrícula</span></h3>
+        <button id="btn-close-modal-cadastro" class="btn-close-modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="form-cadastro">
+        <div class="form-group">
+          <label for="cadastro-nome">Nome Completo</label>
+          <input type="text" id="cadastro-nome" class="input-field" placeholder="Digite seu nome" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cadastro-email">E-mail</label>
+          <input type="email" id="cadastro-email" class="input-field" placeholder="exemplo@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cadastro-password">Crie uma Senha</label>
+          <input type="password" id="cadastro-password" class="input-field" placeholder="Mínimo 6 caracteres" required minlength="6">
+        </div>
+
+        <button type="submit" id="btn-cadastro" class="btn btn-orange">
+          <span>Matricular-se</span>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>ou matricular-se com</span></div>
+      <button id="btn-cadastro-google" class="btn btn-google">
+        <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.77c-.98.66-2.23 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+        </svg>
+        <span>Google</span>
+      </button>
+
+      <!-- Feedback de erro no Cadastro -->
+      <div id="cadastro-error" class="alert alert-danger hidden" style="margin-top: 16px;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: ADICIONAR / EDITAR AULA (ADMIN CRUD)
+       ========================================== -->
+  <div id="modal-aula" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 id="modal-aula-title" class="modal-title">Cadastrar <span>Nova Aula</span></h3>
+        <button id="btn-close-modal-aula" class="btn-close-modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="form-aula">
+        <input type="hidden" id="aula-id">
+
+        <!-- Modificado para Select de Modalidades Padronizado -->
+        <div class="form-group">
+          <label for="aula-nome">Modalidade / Treino</label>
+          <select id="aula-nome" class="input-field" required>
+            <option value="">Selecione uma modalidade...</option>
+            <option value="Musculação">Musculação</option>
+            <option value="Spinning">Spinning</option>
+            <option value="Pilates">Pilates</option>
+            <option value="Crossfit">Crossfit</option>
+            <option value="Muay Thai">Muay Thai</option>
+            <option value="Zumba">Zumba</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="aula-aluno-search">Aluno Beneficiário</label>
+          <div class="custom-select-wrapper" id="aula-aluno-wrapper">
+            <input type="text" id="aula-aluno-search" class="input-field select-search-input" placeholder="Digite para procurar aluno..." autocomplete="off" required>
+            <input type="hidden" id="aula-aluno" required>
+            <div class="custom-select-options hidden" id="aula-aluno-options">
+              <!-- Preenchido via Javascript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Modificado para Select de Professores de Elite Padronizado -->
+        <div class="form-group">
+          <label for="aula-instrutor">Professor / Instrutor</label>
+          <select id="aula-instrutor" class="input-field" required>
+            <option value="">Selecione um professor...</option>
+            <option value="Renato Cariane">Renato Cariane</option>
+            <option value="Balestrini">Balestrini</option>
+            <option value="Motomoto">Motomoto</option>
+            <option value="Nicolas">Nicolas</option>
+          </select>
+        </div>
+
+        <!-- Modificado para formato Calendário (datetime-local) -->
+        <div class="form-group">
+          <label for="aula-horario">Data e Horário (Calendário)</label>
+          <input type="datetime-local" id="aula-horario" class="input-field" required>
+        </div>
+
+        <div class="form-group">
+          <label for="aula-sala">Local ou Sala</label>
+          <input type="text" id="aula-sala" class="input-field" placeholder="Ex: Sala de Ritmos, Área de Musculação" required>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancelar-aula" class="btn btn-outline">Cancelar</button>
+          <button type="submit" class="btn btn-orange">Salvar Aula</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL: ADICIONAR / EDITAR ALUNO (ADMIN CRUD)
+       ========================================== -->
+  <div id="modal-aluno" class="modal-overlay">
+    <div class="modal-window" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="modal-aluno-title" class="modal-title">Cadastrar <span>Novo Aluno</span></h3>
+        <button id="btn-close-modal-aluno" class="btn-close-modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="form-aluno">
+        <input type="hidden" id="aluno-id">
+
+        <div class="form-group">
+          <label for="aluno-nome">Nome Completo do Aluno</label>
+          <input type="text" id="aluno-nome" class="input-field" placeholder="Digite o nome completo" required>
+        </div>
+
+        <div class="form-group">
+          <label for="aluno-email">E-mail de Cadastro</label>
+          <input type="email" id="aluno-email" class="input-field" placeholder="aluno@email.com" required>
+        </div>
+
+        <!-- O UID é gerado automaticamente pelo Firebase Auth no segundo plano -->
+        <input type="hidden" id="aluno-uid">
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancelar-aluno" class="btn btn-outline">Cancelar</button>
+          <button type="submit" class="btn btn-orange">Salvar Aluno</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- IMPORTAÇÃO DO VANILLA JS COMO MÓDULO -->
   <script type="module" src="app.js"></script>
 </body>
 </html>

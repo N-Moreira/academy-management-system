@@ -1,15 +1,29 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Regras de segurança para a coleção 'cores' e 'Cores'
-    match /cores/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    match /Cores/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    // Função auxiliar para verificar se é o administrador Nicolas
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'ulVCutxXEZOWYhhO74TU6rPJ97A3';
     }
     
+    // Regras para a coleção de alunos
+    match /alunos/{alunoId} {
+      allow read: if isAdmin() || (request.auth != null && request.auth.uid == alunoId);
+      allow write: if isAdmin();
+    }
+    
+    // Regras para a coleção de aulas
+    match /aulas/{aulaId} {
+      allow read: if isAdmin() || (request.auth != null && resource.data.alunoId == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
+    // Regras para a coleção temporária de solicitações de matrícula
+    match /permissoes/{solicitacaoId} {
+      allow create: if true;
+      allow read, write: if isAdmin();
+    }
   }
 }
+
