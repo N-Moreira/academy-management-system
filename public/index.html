@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Auth - Login de Cores</title>
+  <!-- Google Fonts: Inter para uma tipografia moderna e elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Área principal da tela que terá seu fundo pintado suavemente com a cor RGB -->
+  <main id="app-container" class="main-container">
+    
+    <!-- Loader/Feedback visual de carregamento -->
+    <div id="global-loader" class="loader-container hidden">
+      <div class="spinner"></div>
+      <p>Carregando preferências do Firestore...</p>
+    </div>
+
+    <!-- Seção de Login (Exibida por padrão quando o usuário não está autenticado) -->
+    <section id="login-section" class="card fade-in">
+      <div class="card-header">
+        <h2>Entrar na Conta</h2>
+        <p class="subtitle">Digite suas credenciais do Firebase para acessar</p>
+      </div>
+      
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="exemplo@gmail.com" required autocomplete="email">
+        </div>
+        
+        <div class="input-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" placeholder="Sua senha" required autocomplete="current-password">
+        </div>
+        
+        <button type="submit" id="btn-login" class="btn btn-primary">
+          <span>Entrar</span>
+        </button>
+      </form>
+
+      <!-- Container para exibir mensagens de erro amigáveis -->
+      <div id="error-message" class="message error-message hidden"></div>
+    </section>
+
+    <!-- Seção de Sucesso (Exibida quando o usuário está autenticado com sucesso) -->
+    <section id="dashboard-section" class="card fade-in hidden">
+      <div class="card-header">
+        <div class="success-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon-success">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+          </svg>
+          <span>Login realizado com sucesso!</span>
+        </div>
+        <h2>Sua Cor Personalizada</h2>
+        <p class="subtitle">O valor RGB abaixo foi obtido diretamente do seu perfil no Firestore.</p>
+      </div>
+
+      <div class="user-info-container">
+        <div class="info-row">
+          <span class="info-label">E-mail:</span>
+          <span id="user-email" class="info-value">...</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">Valor RGB:</span>
+          <div class="rgb-badge">
+            <span class="color-preview-dot" id="color-dot"></span>
+            <code id="rgb-value">...</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container para mensagens de alertas específicos (ex: documento ou campo de cor ausente no Firestore) -->
+      <div id="firestore-message" class="message info-message hidden"></div>
+
+      <button id="btn-logout" class="btn btn-secondary">
+        <span>Sair</span>
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Importação do arquivo JavaScript como módulo Vanilla, usando o SDK do Firebase -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
