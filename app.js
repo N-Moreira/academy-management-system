@@ -55,7 +55,7 @@ const secondaryApp = initializeApp(firebaseConfig, "Secondary");
 const secondaryAuth = getAuth(secondaryApp);
 
 // ID EXCLUSIVO DO ADMINISTRADOR NICOLAS
-const ADMIN_UID = "ulVCutxXEZOWYhhO74TU6rPJ97A3";
+const ADMIN_UID = "NhvGn1fAtdOBxcgHRxFSxW7DYcI3";
 
 // 3. SELEÇÃO DE ELEMENTOS DOM
 const pageLoader = document.getElementById("page-loader");

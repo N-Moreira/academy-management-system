@@ -4,7 +4,7 @@ service cloud.firestore {
     
     // Função auxiliar para verificar se é o administrador Nicolas
     function isAdmin() {
-      return request.auth != null && request.auth.uid == 'ulVCutxXEZOWYhhO74TU6rPJ97A3';
+      return request.auth != null && request.auth.uid == 'NhvGn1fAtdOBxcgHRxFSxW7DYcI3';
     }
     
     // Regras para a coleção de alunos
